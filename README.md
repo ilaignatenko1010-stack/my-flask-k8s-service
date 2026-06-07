@@ -2,17 +2,19 @@
 
 В ходе выполнения практического задания был разработан веб-сервис на фреймворке Flask, предоставляющий REST API. Сервис упакован в Docker-контейнер, загружен в публичный реестр Docker Hub, развернут в Яндекс Облаке (доступ через телефон) и в локальном кластере Kubernetes (Minikube). Все исходные коды и манифесты загружены в GitHub.
 
-## 1. СОЗДАНИЕ РЕПОЗИТОРИЯ GITHUB 
+## 1. СОЗДАНИЕ РЕПОЗИТОРИЯ GITHUB
 
-Что сделано:
+### Что сделано:
 
-1.Создан публичный репозиторий с именем my-flask-k8s-service
-2.Репозиторий инициализирован с README.md и .gitignore (Python)
-3.Репозиторий склонирован на локальный компьютер
+1. Создан публичный репозиторий с именем `my-flask-k8s-service`
+2. Репозиторий инициализирован с `README.md` и `.gitignore` (Python)
+3. Репозиторий склонирован на локальный компьютер
 
-Использованные команды:
-bash
-git clone https://github.com/<username>/my-flask-k8s-service.gitcd my-flask-k8s-service
+### Использованные команды:
+
+```bash
+git clone https://github.com/<username>/my-flask-k8s-service.git
+cd my-flask-k8s-service
 
 ![](/media/1.jpg)
 ![](/media/1.jpg)
