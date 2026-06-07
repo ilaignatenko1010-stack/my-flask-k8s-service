@@ -17,7 +17,7 @@ git clone https://github.com/<username>/my-flask-k8s-service.git
 cd my-flask-k8s-service
 ```
 
-![](/media/1.jpg)
+![](/media/1.png)
 ![](/media/2.jpg)
 
 ## 2. РАЗРАБОТКА СЕРВИСА FLASK
