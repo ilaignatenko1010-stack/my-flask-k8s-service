@@ -21,14 +21,16 @@ cd my-flask-k8s-service
 
 ## 2. РАЗРАБОТКА СЕРВИСА FLASK
 
-Что сделано:
+### Что сделано:
 
-1)Создан файл app.py с кодом веб-сервиса
-2)Реализованы три endpoint: /, /health, /info
-3)Создан requirements.txt с зависимостью Flask
-4)Файлы загружены в GitHub
+1. Создан файл `app.py` с кодом веб-сервиса
+2. Реализованы три endpoint: `/`, `/health`, `/info`
+3. Создан `requirements.txt` с зависимостью Flask
+4. Файлы загружены в GitHub
 
-Содержимое app.py:
+### Содержимое `app.py`:
+
+```python
 from flask import Flask, jsonify
 import datetime
 import os
@@ -57,24 +59,23 @@ def info():
     })
 
 if __name__ == '__main__':
-app.run(host='0.0.0.0', port=5000, debug=False)
-
-Содержимое requirements.txt:
-text
-Flask==2.3.3
+    app.run(host='0.0.0.0', port=5000, debug=False)
 
 ![](/media/1.jpg)
 ![](/media/1.jpg)
 
 ## 3. УПАКОВКА СЕРВИСА В DOCKER
 
-Что сделано:
--Создан Dockerfile для сборки образа
--Выполнена сборка Docker-образа: docker build -t my-flask-service .
--Запущен контейнер: docker run -d -p 5000:5000 --name my-flask-container my-flask-service
--Проверена работа через браузер http://localhost:5000
+### Что сделано:
 
-Содержимое Dockerfile:
+- Создан `Dockerfile` для сборки образа
+- Выполнена сборка Docker-образа: `docker build -t my-flask-service .`
+- Запущен контейнер: `docker run -d -p 5000:5000 --name my-flask-container my-flask-service`
+- Проверена работа через браузер `http://localhost:5000`
+
+### Содержимое `Dockerfile`:
+
+```dockerfile
 FROM python:3.9-slim
 WORKDIR /app
 COPY requirements.txt .
@@ -90,11 +91,12 @@ CMD ["python", "app.py"]
 
 ## 4. ЗАГРУЗКА ОБРАЗА В DOCKER HUB
 
-Что сделано:
--Выполнен вход в Docker Hub: docker login
--Образ помечен тегом: docker tag my-flask-service <username>/my-flask-service:latest
--Образ загружен: docker push <username>/my-flask-service:latest
--Проверено наличие образа на сайте Docker Hub
+### Что сделано:
+
+- Выполнен вход в Docker Hub: `docker login`
+- Образ помечен тегом: `docker tag my-flask-service <username>/my-flask-service:latest`
+- Образ загружен: `docker push <username>/my-flask-service:latest`
+- Проверено наличие образа на сайте Docker Hub
 
 ![](/media/1.jpg)
 ![](/media/1.jpg)
@@ -102,96 +104,44 @@ CMD ["python", "app.py"]
 ![](/media/1.jpg)
 ![](/media/1.jpg)
 
-## 5. РАЗВЕРТКА В ЯНДЕКС ОБЛАКЕ (через телефон)
+## 5. РАЗВЁРТКА В ЯНДЕКС ОБЛАКЕ (через телефон)
 
-Что сделано:
-1.Выполнена регистрация в Yandex Cloud
-2.Создана виртуальная машина:
--Имя: my-flask-service
--Образ: Container Optimized Image
--Диск: SSD 20 ГБ
--Ресурсы: 2 vCPU, 2 GB RAM
--Публичный IP: включен
-3.В метаданные (user-data) добавлена конфигурация для запуска Docker-контейнера
-4.ВМ запущена, получен публичный IP-адрес
-5.С телефона открыт адрес http://<IP>:5000
+### Что сделано:
 
-Конфигурация метаданных:
-yaml
+1. Выполнена регистрация в Yandex Cloud
+2. Создана виртуальная машина:
+   - Имя: `my-flask-service`
+   - Образ: Container Optimized Image
+   - Диск: SSD 20 ГБ
+   - Ресурсы: 2 vCPU, 2 GB RAM
+   - Публичный IP: включен
+3. В метаданные (user-data) добавлена конфигурация для запуска Docker-контейнера
+4. ВМ запущена, получен публичный IP-адрес
+5. С телефона открыт адрес `http://<IP>:5000`
+
+### Конфигурация метаданных (user-data):
+
+```yaml
 #cloud-config
-runcmd: 
- - docker run -d -p 5000:5000 --name my-flask-app <username>/my-flask-service:latest
+runcmd:
+  - docker run -d -p 5000:5000 --name my-flask-app <username>/my-flask-service:latest
+
    ![](/media/1.jpg)
    ![](/media/1.jpg)
    ![](/media/1.jpg)
 
    
-## 6. РАЗВЕРТКА В MINIKUBE (KUBERNETES)
-Что сделано:
-1)Установлен и запущен Minikube: minikube start --driver=docker
-2)Созданы три Kubernetes манифеста в папке k8s/:
--00-namespace.yaml — создание пространства my-app
--01-deployment.yaml — Deployment с 2 репликами
--02-service.yaml — Service типа NodePort (порт 30001)
-3)Выполнено применение манифестов: kubectl apply -f k8s/
-4)Проверена работа сервиса через minikube service
+## 6. РАЗВЁРТКА В MINIKUBE (KUBERNETES)
 
-Содержимое манифестов:
+### Что сделано:
 
-k8s/00-namespace.yaml:
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: my-app
-
-k8s/01-deployment.yaml:
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: flask-app
-  namespace: my-app
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: flask-app
-  template:
-    metadata:
-      labels:
-        app: flask-app
-    spec:
-      containers:
-      - name: flask-container
-        image: <username>/my-flask-service:latest
-        ports:
-        - containerPort: 5000
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 5000
-          initialDelaySeconds: 10
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 5000
-          initialDelaySeconds: 5
-          periodSeconds: 5
-
-k8s/02-service.yaml:
-apiVersion: v1
-kind: Service
-metadata:
-  name: flask-service
-  namespace: my-app
-spec:
-  type: NodePort
-  selector:
-    app: flask-app
-  ports:
-  - port: 5000
-    targetPort: 5000
-    nodePort: 30001
+1. Установлен и запущен Minikube: `minikube start --driver=docker`
+2. Созданы три Kubernetes манифеста в папке `k8s/`:
+   - `00-namespace.yaml` — создание пространства `my-app`
+   - `01-deployment.yaml` — Deployment с 2 репликами
+   - `02-service.yaml` — Service типа NodePort (порт 30001)
+3. Выполнено применение манифестов: `kubectl apply -f k8s/`
+4. Проверена работа сервиса через `minikube service`
 
 ![](/media/1.jpg)
 ![](/media/1.jpg)
