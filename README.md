@@ -18,7 +18,7 @@ cd my-flask-k8s-service
 ```
 
 ![](/media/1.jpg)
-![](/media/1.jpg)
+![](/media/2.jpg)
 
 ## 2. РАЗРАБОТКА СЕРВИСА FLASK
 
@@ -63,8 +63,8 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
 ```
 
-![](/media/1.jpg)
-![](/media/1.jpg)
+![](/media/3.jpg)
+![](/media/4.jpg)
 
 ## 3. УПАКОВКА СЕРВИСА В DOCKER
 
