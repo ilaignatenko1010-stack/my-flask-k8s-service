@@ -18,7 +18,7 @@ cd my-flask-k8s-service
 ```
 
 ![](/media/1.png)
-![](/media/2.jpg)
+![](/media/2.png)
 
 ## 2. РАЗРАБОТКА СЕРВИСА FLASK
 
@@ -63,8 +63,8 @@ if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
 ```
 
-![](/media/3.jpg)
-![](/media/4.jpg)
+![](/media/3.png)
+![](/media/4.png)
 
 ## 3. УПАКОВКА СЕРВИСА В DOCKER
 
@@ -87,10 +87,10 @@ EXPOSE 5000
 CMD ["python", "app.py"]
 ```
 
-![](/media/1.jpg)
-![](/media/1.jpg)
-![](/media/1.jpg)
-![](/media/1.jpg)
+![](/media/5.png)
+![](/media/6.png)
+![](/media/7.png)
+![](/media/8.png)
 
 ## 4. ЗАГРУЗКА ОБРАЗА В DOCKER HUB
 
@@ -101,11 +101,11 @@ CMD ["python", "app.py"]
 - Образ загружен: `docker push <username>/my-flask-service:latest`
 - Проверено наличие образа на сайте Docker Hub
 
-![](/media/1.jpg)
-![](/media/1.jpg)
-![](/media/1.jpg)
-![](/media/1.jpg)
-![](/media/1.jpg)
+![](/media/9.png)
+![](/media/10.png)
+![](/media/11.png)
+![](/media/12.png)
+![](/media/13.png)
 
 ## 5. РАЗВЁРТКА В ЯНДЕКС ОБЛАКЕ (через телефон)
 
@@ -129,9 +129,9 @@ CMD ["python", "app.py"]
 runcmd:
   - docker run -d -p 5000:5000 --name my-flask-app <username>/my-flask-service:latest
 ```
-   ![](/media/1.jpg)
-   ![](/media/1.jpg)
-   ![](/media/1.jpg)
+   ![](/media/14.png)
+   ![](/media/15.png)
+   ![](/media/16.png)
 
    
 ## 6. РАЗВЁРТКА В MINIKUBE (KUBERNETES)
@@ -146,8 +146,8 @@ runcmd:
 3. Выполнено применение манифестов: `kubectl apply -f k8s/`
 4. Проверена работа сервиса через `minikube service`
 
-![](/media/1.jpg)
-![](/media/1.jpg)
-![](/media/1.jpg)
-![](/media/1.jpg)
+![](/media/17.png)
+![](/media/18.png)
+![](/media/19.png)
+![](/media/20.png)
 
