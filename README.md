@@ -15,6 +15,7 @@
 ```bash
 git clone https://github.com/<username>/my-flask-k8s-service.git
 cd my-flask-k8s-service
+```
 
 ![](/media/1.jpg)
 ![](/media/1.jpg)
@@ -60,6 +61,7 @@ def info():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=False)
+```
 
 ![](/media/1.jpg)
 ![](/media/1.jpg)
@@ -83,6 +85,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY app.py .
 EXPOSE 5000
 CMD ["python", "app.py"]
+```
 
 ![](/media/1.jpg)
 ![](/media/1.jpg)
@@ -125,7 +128,7 @@ CMD ["python", "app.py"]
 #cloud-config
 runcmd:
   - docker run -d -p 5000:5000 --name my-flask-app <username>/my-flask-service:latest
-
+```
    ![](/media/1.jpg)
    ![](/media/1.jpg)
    ![](/media/1.jpg)
