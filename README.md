@@ -129,9 +129,9 @@ CMD ["python", "app.py"]
 runcmd:
   - docker run -d -p 5000:5000 --name my-flask-app <username>/my-flask-service:latest
 ```
-   ![](/media/14.png)
-   ![](/media/15.png)
-   ![](/media/16.png)
+   ![](/media/14.jpg)
+   ![](/media/15.jpg)
+   ![](/media/16.jpg)
 
    
 ## 6. РАЗВЁРТКА В MINIKUBE (KUBERNETES)
